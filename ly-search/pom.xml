@@ -42,6 +42,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
+        <!--商品微服务-->
+        <dependency>
+            <groupId>com.leyou.service</groupId>
+            <artifactId>ly-item-interface</artifactId>
+            <version>${leyou.latest.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
