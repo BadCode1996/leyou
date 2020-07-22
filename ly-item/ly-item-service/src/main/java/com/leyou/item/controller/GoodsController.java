@@ -63,8 +63,6 @@ public class GoodsController {
         }
     }
 
-//
-
     /**
      * 修改商品
      * http://api.leyou.com/api/item/goods

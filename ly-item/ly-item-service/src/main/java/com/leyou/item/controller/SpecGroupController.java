@@ -41,14 +41,17 @@ public class SpecGroupController {
      * http://api.leyou.com/api/item/spec/params?gid=3
      * http://api.leyou.com/api/item/spec/params?cid=324
      * @param gid
+     * @param cid
      * @return
      */
     @GetMapping("params")
     public ResponseEntity<List<SpecParam>> querySpecParam(
             @RequestParam(value = "gid",required = false)Long gid,
-            @RequestParam(value = "cid",required = false)Long cid
+            @RequestParam(value = "cid",required = false)Long cid,
+            @RequestParam(value = "searching",required = false)Boolean searching,
+            @RequestParam(value = "generic",required = false)Boolean generic
     ){
-        List<SpecParam> list = this.specificationService.querySpecParam(gid,cid);
+        List<SpecParam> list = this.specificationService.querySpecParam(gid,cid,searching,generic);
         if (list == null || list.size() == 0){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

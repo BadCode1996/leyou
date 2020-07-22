@@ -22,9 +22,11 @@ public interface SpecificationService {
      * 根据gid查询规格参数组下的参数名
      * @param gid 规格参数分组id
      * @param cid 分类id
+     * @param searching
+     * @param generic
      * @return
      */
-    List<SpecParam> querySpecParam(Long gid,Long cid);
+    List<SpecParam> querySpecParam(Long gid,Long cid,Boolean searching,Boolean generic);
 
     /**
      * 添加规格组

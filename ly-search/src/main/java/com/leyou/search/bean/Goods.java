@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Srd
  * @date 2020/7/21  16:00
  */
-@Document(indexName = "goods",shards = 1,replicas = 0)
+@Document(indexName = "goods", shards = 1, replicas = 0)
 public class Goods {
     @Id
     private Long id;
@@ -39,6 +39,23 @@ public class Goods {
      * 可搜索的规格参数集合，key是参数名，值是参数值
      */
     private Map<String, Object> specs;
+
+    public Goods() {
+    }
+
+    public Goods(Long id, String all, String subTitle, Long brandId, Long cid1, Long cid2, Long cid3, Date createTime, List<Long> price, String skus, Map<String, Object> specs) {
+        this.id = id;
+        this.all = all;
+        this.subTitle = subTitle;
+        this.brandId = brandId;
+        this.cid1 = cid1;
+        this.cid2 = cid2;
+        this.cid3 = cid3;
+        this.createTime = createTime;
+        this.price = price;
+        this.skus = skus;
+        this.specs = specs;
+    }
 
     public Long getId() {
         return id;

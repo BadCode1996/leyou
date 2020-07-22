@@ -42,10 +42,12 @@ public class SpecificationServiceImpl implements SpecificationService {
      * @return
      */
     @Override
-    public List<SpecParam> querySpecParam(Long gid,Long cid) {
+    public List<SpecParam> querySpecParam(Long gid,Long cid,Boolean searching,Boolean generic) {
         SpecParam specParam = new SpecParam();
         specParam.setGroupId(gid);
         specParam.setCid(cid);
+        specParam.setSearching(searching);
+        specParam.setGeneric(generic);
         return this.specParamMapper.select(specParam);
     }
 
