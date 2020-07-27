@@ -11,6 +11,8 @@ spring:
     # SpringCloud 2.1.0以上版本，将不再支持FeignClient的name属性相同的名字
     # 即多个接口上的@FeignClient("相同的服务名")会报错，默认为false，设置为true，允许重名
     allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null  # 配置json处理时忽略空值
 
 eureka:
   client:
