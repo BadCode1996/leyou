@@ -3,6 +3,7 @@ package com.leyou.search.service;
 import com.leyou.common.bean.PageResult;
 import com.leyou.search.bean.Goods;
 import com.leyou.search.bean.SearchRequest;
+import com.leyou.search.bean.SearchResult;
 
 /**
  * @author Srd
@@ -15,5 +16,5 @@ public interface SearchService {
      * @param searchRequest
      * @return
      */
-    PageResult<Goods> search(SearchRequest searchRequest);
+    SearchResult search(SearchRequest searchRequest);
 }

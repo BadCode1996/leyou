@@ -3,6 +3,7 @@ package com.leyou.search.controller;
 import com.leyou.common.bean.PageResult;
 import com.leyou.search.bean.Goods;
 import com.leyou.search.bean.SearchRequest;
+import com.leyou.search.bean.SearchResult;
 import com.leyou.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,11 @@ public class SearchController {
     private SearchService searchService;
 
     @PostMapping("page")
-    public ResponseEntity<PageResult<Goods>> queryByPage(@RequestBody SearchRequest searchRequest) {
-        PageResult<Goods> goodsPageResult = this.searchService.search(searchRequest);
-        if (goodsPageResult == null) {
+    public ResponseEntity<SearchResult> queryByPage(@RequestBody SearchRequest searchRequest) {
+        SearchResult searchResult = this.searchService.search(searchRequest);
+        if (searchResult == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity.ok(goodsPageResult);
+        return ResponseEntity.ok(searchResult);
     }
 }
