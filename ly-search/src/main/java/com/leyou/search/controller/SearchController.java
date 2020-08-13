@@ -1,7 +1,5 @@
 package com.leyou.search.controller;
 
-import com.leyou.common.bean.PageResult;
-import com.leyou.search.bean.Goods;
 import com.leyou.search.bean.SearchRequest;
 import com.leyou.search.bean.SearchResult;
 import com.leyou.search.service.SearchService;

@@ -1,6 +1,10 @@
 package com.leyou.item.service;
 
 import com.leyou.item.bean.Category;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,4 +41,11 @@ public interface CategoryService {
      * @return List<String> 分类名集合
      */
     List<String> queryCategoryNameByIds(List<Long> ids);
+
+    /**
+     * 根据3级分类id，查询1~3级的分类
+     * @param id
+     * @return
+     */
+    List<Category> queryAllByCid3(Long id);
 }

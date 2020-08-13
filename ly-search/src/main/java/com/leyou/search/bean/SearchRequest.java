@@ -2,6 +2,8 @@ package com.leyou.search.bean;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.util.Map;
+
 /**
  * @author Srd
  * @date 2020/7/24  0:41
@@ -13,6 +15,8 @@ public class SearchRequest {
 
     private String sortBy;
     private Boolean descending;
+
+    private Map<String,Object> filter;
 
     private static final Integer DEFAULT_SIZE = 20;
     private static final Integer DEFAULT_PAGE = 1;
@@ -56,6 +60,14 @@ public class SearchRequest {
         this.descending = descending;
     }
 
+    public Map<String, Object> getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Map<String, Object> filter) {
+        this.filter = filter;
+    }
+
     @Override
     public String toString() {
         return "SearchRequest{" +
@@ -63,6 +75,7 @@ public class SearchRequest {
                 ", page=" + page +
                 ", sortBy='" + sortBy + '\'' +
                 ", descending=" + descending +
+                ", filter=" + filter +
                 '}';
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -73,5 +74,19 @@ public class CategoryServiceImpl implements CategoryService {
             names.add(category.getName());
         }
         return names;
+    }
+
+    /**
+     * 根据3级分类id，查询1~3级的分类
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Category> queryAllByCid3(Long id) {
+        Category category3 = this.categoryMapper.selectByPrimaryKey(id);
+        Category category2 = this.categoryMapper.selectByPrimaryKey(category3.getParentId());
+        Category category1 = this.categoryMapper.selectByPrimaryKey(category2.getParentId());
+        return Arrays.asList(category1,category2,category3);
     }
 }
