@@ -116,4 +116,18 @@ public class SpecGroupController {
         this.specificationService.deleteSpecParam(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    /**
+     * 查询规格参数组，以及组内的所有规格参数
+     * @param cid
+     * @return
+     */
+    @GetMapping("{cid}")
+    public  ResponseEntity<List<SpecGroup>> querySpecsByCid(@PathVariable("cid") Long cid){
+        List<SpecGroup> groups = this.specificationService.querySpecsByCid(cid);
+        if (groups == null || groups.size() == 0){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(groups);
+    }
 }

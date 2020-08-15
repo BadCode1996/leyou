@@ -1,0 +1,23 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: goods-page
+  thymeleaf:
+    cache: false
+  main:
+    # SpringCloud 2.1.0以上版本，将不再支持FeignClient的name属性相同的名字
+    # 即多个接口上的@FeignClient("相同的服务名")会报错，默认为false，设置为true，允许重名
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    enabled: true
+  instance:
+    lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+    lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}.${server.port}

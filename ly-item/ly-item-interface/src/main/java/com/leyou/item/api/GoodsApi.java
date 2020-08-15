@@ -2,6 +2,7 @@ package com.leyou.item.api;
 
 import com.leyou.common.bean.PageResult;
 import com.leyou.item.bean.Sku;
+import com.leyou.item.bean.Spu;
 import com.leyou.item.bean.SpuDetail;
 import com.leyou.item.bo.SpuBo;
 import org.springframework.http.HttpStatus;
@@ -77,4 +78,12 @@ public interface GoodsApi {
      */
     @PutMapping("spu/saleable/{id}")
     void changeSaleable(@PathVariable Long id);
+
+    /**
+     * 根据spu的id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("spu/{id}")
+    public Spu querySpuById(@PathVariable("id") Long id);
 }

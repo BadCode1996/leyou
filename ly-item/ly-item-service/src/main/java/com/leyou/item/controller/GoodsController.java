@@ -123,4 +123,18 @@ public class GoodsController {
         this.goodsService.changeSaleable(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    /**
+     * 根据spu的id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("spu/{id}")
+    public ResponseEntity<Spu> querySpuById(@PathVariable("id") Long id){
+        Spu spu = this.goodsService.querySpuById(id);
+        if (spu == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(spu);
+    }
 }

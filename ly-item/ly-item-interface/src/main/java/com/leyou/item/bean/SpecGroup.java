@@ -1,9 +1,7 @@
 package com.leyou.item.bean;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Srd
@@ -18,6 +16,12 @@ public class SpecGroup {
     private Long cid;
 
     private String name;
+
+    /**
+     * 添加一个SpecParam集合，保存SpecGroup组下的所有规格参数
+     */
+    @Transient
+    private List<SpecParam> specParam;
 
 
     public Long getId() {
@@ -44,12 +48,21 @@ public class SpecGroup {
         this.name = name;
     }
 
+    public List<SpecParam> getSpecParam() {
+        return specParam;
+    }
+
+    public void setSpecParam(List<SpecParam> specParam) {
+        this.specParam = specParam;
+    }
+
     @Override
     public String toString() {
         return "SpecGroup{" +
                 "id=" + id +
                 ", cid=" + cid +
                 ", name='" + name + '\'' +
+                ", specParam=" + specParam +
                 '}';
     }
 }
