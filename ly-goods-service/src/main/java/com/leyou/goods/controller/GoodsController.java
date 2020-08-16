@@ -1,5 +1,6 @@
 package com.leyou.goods.controller;
 
+import com.leyou.goods.service.FileService;
 import com.leyou.goods.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private FileService fileService;
+
     /**
      * 跳转到商品详情页
      * @param model
@@ -31,6 +35,11 @@ public class GoodsController {
     public String toItemPage(Model model, @PathVariable("id") Long id){
         Map<String,Object> modelMap = this.goodsService.loadModel(id);
         model.addAllAttributes(modelMap);
+
+        if(!this.fileService.exists(id)){
+            this.fileService.syncCreateHtml(id);
+        }
+
         return "item";
     }
 }
