@@ -9,13 +9,14 @@ import com.leyou.item.mapper.*;
 import com.leyou.item.service.CategoryService;
 import com.leyou.item.service.GoodsService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PutMapping;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
@@ -47,6 +48,11 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private StockMapper stockMapper;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    private final Logger logger = LoggerFactory.getLogger(GoodsService.class);
 
     /**
      * 分页查询商品列表
@@ -100,7 +106,7 @@ public class GoodsServiceImpl implements GoodsService {
      * @param spu 封装的前台数据
      */
     @Override
-    @Transactional()
+    @Transactional(rollbackFor = Exception.class)
     public void save(SpuBo spu) {
 //        保存spu
         spu.setSaleable(true);
@@ -114,6 +120,9 @@ public class GoodsServiceImpl implements GoodsService {
         spuDetail.setSpuId(spu.getId());
         this.spuDetailMapper.insert(spuDetail);
         saveSkuAndStock(spu);
+
+//        发送添加商品的消息
+        this.sendMessage(spu.getId(),"insert");
     }
 
     /**
@@ -128,7 +137,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     /**
-     * 修改商品，根据id获取sku，回显数据
+     * 根据id获取sku，回显数据
      * @param id spu_id
      * @return List<Sku>
      */
@@ -146,7 +155,7 @@ public class GoodsServiceImpl implements GoodsService {
      * @param spu spu
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void edit(SpuBo spu) {
 //        修改spu
         spu.setLastUpdateTime(new Date());
@@ -157,6 +166,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 //        修改spu详情，spu_detail
         this.spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
+
+//        发送修改商品的消息
+//        this.sendMessage(spu.getId(),"update");
 
 //        修改sku，sku信息是变动的，可能有些数据不存在，所以需要先删除再添加
 //        获取以前的sku数据
@@ -179,6 +191,11 @@ public class GoodsServiceImpl implements GoodsService {
         }
 //        添加sku和stock
         saveSkuAndStock(spu);
+
+
+//        发送修改商品的消息
+        this.sendMessage(spu.getId(),"update");
+
     }
 
     /**
@@ -225,6 +242,19 @@ public class GoodsServiceImpl implements GoodsService {
             stock.setSkuId(sku.getId());
             stock.setStock(sku.getStock());
             this.stockMapper.insert(stock);
+        }
+    }
+
+    /**
+     * 封装一个发送消息到rabbitmq的方法
+     * @param id 商品id
+     * @param type 发送类型 insert, update, delete
+     */
+    public void sendMessage(Long id, String type){
+        try {
+            this.rabbitTemplate.convertAndSend("item." + type, id);
+        }catch (Exception e){
+            logger.error("{}商品消息发送异常，商品id：{}", type, id, e);
         }
     }
 }

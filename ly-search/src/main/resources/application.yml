@@ -13,6 +13,9 @@ spring:
     allow-bean-definition-overriding: true
   jackson:
     default-property-inclusion: non_null  # 配置json处理时忽略空值
+  rabbitmq: # 这里只用来接收数据，所以不需要配置template相关内容
+    addresses: amqp://leyou:123456@192.168.40.77
+    virtual-host: /leyou
 
 eureka:
   client:

@@ -164,9 +164,9 @@ public class SearchServiceImpl implements SearchService {
             Map<String, Aggregation> asMap = aggregations.getAsMap();
 
 //            打印结果测试
-            for (Map.Entry<String, Aggregation> entry : asMap.entrySet()) {
+            /*for (Map.Entry<String, Aggregation> entry : asMap.entrySet()) {
                 System.out.println(entry.getKey() + "-----" + entry.getValue().toString());
-            }
+            }*/
 
             for (SpecParam param : params) {
                 Map<String, Object> map = new HashMap<>(16);

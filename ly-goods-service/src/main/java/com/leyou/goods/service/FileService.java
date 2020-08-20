@@ -25,4 +25,10 @@ public interface FileService {
      * @param id
      */
     void syncCreateHtml(Long id);
+
+    /**
+     * 删除静态页面
+     * @param id
+     */
+    void deleteHtml(Long id);
 }

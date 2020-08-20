@@ -3,6 +3,7 @@ package com.leyou.search.service;
 import com.leyou.item.bean.Spu;
 import com.leyou.item.bo.SpuBo;
 import com.leyou.search.bean.Goods;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @author Srd
@@ -16,4 +17,16 @@ public interface IndexService {
      * @return
      */
     Goods buildGoods(SpuBo spuBo);
+
+    /**
+     * 新增索引
+     * @param id
+     */
+    void createIndex(Long id);
+
+    /**
+     * 删除索引
+     * @param id
+     */
+    void deleteIndex(Long id);
 }

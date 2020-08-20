@@ -7,6 +7,18 @@ spring:
     url: jdbc:mysql://localhost:3306/leyou
     username: root
     password: admin
+  rabbitmq:
+    addresses: amqp://leyou:123456@192.168.40.77
+    virtual-host: /leyou
+    template:
+      retry:
+        enabled: true # 开启失败重试
+        initial-interval: 10000ms # 第一次的重试时间间隔
+        max-interval: 300000ms # 最长重试间隔，超过这个间隔将不再重试
+        multiplier: 2 # 下次重试间隔的倍数
+      exchange: ly.item.exchange # 缺省的交换机名称
+#    publisher-confirms: true # 过时弃用，使用publisher-confirm-type: correlated
+    publisher-confirm-type: correlated
 eureka:
   client:
     service-url:

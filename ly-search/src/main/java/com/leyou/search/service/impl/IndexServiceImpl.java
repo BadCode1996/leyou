@@ -4,15 +4,18 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.leyou.common.utils.JsonUtils;
 import com.leyou.item.bean.Sku;
 import com.leyou.item.bean.SpecParam;
+import com.leyou.item.bean.Spu;
 import com.leyou.item.bean.SpuDetail;
 import com.leyou.item.bo.SpuBo;
 import com.leyou.search.bean.Goods;
 import com.leyou.search.client.CategoryClient;
 import com.leyou.search.client.GoodsClient;
 import com.leyou.search.client.SpecificationClient;
+import com.leyou.search.repository.GoodsRepository;
 import com.leyou.search.service.IndexService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,9 @@ public class IndexServiceImpl implements IndexService {
 
     @Autowired
     private GoodsClient goodsClient;
+
+    @Autowired
+    private GoodsRepository goodsRepository;
 
     /**
      * 构建商品
@@ -130,5 +136,27 @@ public class IndexServiceImpl implements IndexService {
             }
         }
         return result;
+    }
+
+    /**
+     * 新增索引
+     * @param id
+     */
+    @Override
+    public void createIndex(Long id){
+        Spu spu = this.goodsClient.querySpuById(id);
+        SpuBo spuBo = new SpuBo();
+        BeanUtils.copyProperties(spu,spuBo);
+        Goods goods = this.buildGoods(spuBo);
+        this.goodsRepository.save(goods);
+    }
+
+    /**
+     * 删除索引
+     * @param id
+     */
+    @Override
+    public void deleteIndex(Long id){
+        this.goodsRepository.deleteById(id);
     }
 }

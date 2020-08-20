@@ -109,4 +109,15 @@ public class FileServiceImpl implements FileService {
             }
         });
     }
+
+    /**
+     * 删除静态页面
+     *
+     * @param id
+     */
+    @Override
+    public void deleteHtml(Long id) {
+        File file = new File(this.destPath, id + ".html");
+        file.deleteOnExit();
+    }
 }
