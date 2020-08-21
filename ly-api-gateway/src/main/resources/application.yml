@@ -21,6 +21,7 @@ zuul:
   routes:
     item-service: /item/** # 将商品微服务映射到/item/**
     search-service: /search/** # 将搜索微服务映射到/search/**
+    user-service: /user/**  # 将注册登录微服务映射到/user/**
 
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)

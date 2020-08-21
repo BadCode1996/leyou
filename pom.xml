@@ -15,6 +15,10 @@
         <module>ly-upload</module>
         <module>ly-search</module>
         <module>ly-goods-service</module>
+        <module>ly-user</module>
+        <module>ly-user/ly-user-interface</module>
+        <module>ly-user/ly-user-service</module>
+        <module>ly-sms-service</module>
     </modules>
     <packaging>pom</packaging>
 
