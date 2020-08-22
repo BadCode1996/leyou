@@ -9,7 +9,7 @@ spring:
 
 ly:
   sms:
-    accessKeyId: LTAI4G7SvZYaTxERGhPVKvw6 # 你自己的accessKeyId
-    accessKeySecret: AfgTNhieuIAuaagjOkf5KPKbbfIoII # 你自己的AccessKeySecret
-    signName: 乐优商城 # 签名名称
-    verifyCodeTemplate: SMS_200177374 # 模板名称
+    accessKeyId: ************* # 你自己的accessKeyId
+    accessKeySecret: **************** # 你自己的AccessKeySecret
+    signName: ********* # 签名名称
+    verifyCodeTemplate: ************* # 模板名称
