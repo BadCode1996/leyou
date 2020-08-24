@@ -129,7 +129,8 @@ public class UserServiceImpl implements UserService {
             msg.put("phone", phone);
             msg.put("code", code);
 //            发送消息到rabbitmq，有mq来执行发送验证码的业务
-            this.rabbitTemplate.convertAndSend("ly.sms.exchange", "sms.verify.code", msg);
+//            不发送短信验证码，直接去redis中获取
+//            this.rabbitTemplate.convertAndSend("ly.sms.exchange", "sms.verify.code", msg);
 //            保存验证码到redis，5分钟后到期自动删除
             this.redisTemplate.opsForValue().set(KEY_PREFIX + phone, code, 5, TimeUnit.MINUTES);
             return true;

@@ -47,8 +47,8 @@ public class UserController {
 //            500
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-//        201
-        return new ResponseEntity<>(HttpStatus.CREATED);
+//        200
+        return ResponseEntity.ok().build();
     }
 
     /**
