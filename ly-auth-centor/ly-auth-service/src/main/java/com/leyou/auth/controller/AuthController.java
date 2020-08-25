@@ -1,16 +1,16 @@
 package com.leyou.auth.controller;
 
+import com.leyou.auth.bean.UserInfo;
 import com.leyou.auth.config.JwtProperties;
 import com.leyou.auth.service.AuthService;
+import com.leyou.auth.utils.JwtUtils;
 import com.leyou.common.utils.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +29,9 @@ public class AuthController {
     @Autowired
     private JwtProperties properties;
 
+    /**
+     * 认证中心
+     */
     @PostMapping("accredit")
     public ResponseEntity<Void> authentication(
             @RequestParam("username") String username,
@@ -44,6 +47,30 @@ public class AuthController {
 //        将token写入cookie，并指定httpOnly为true，防止通过js获取或修改
         CookieUtils.setCookie(request,response,properties.getCookieName(),token,properties.getCookieMaxAge(),null,true);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 校验用户接口
+     */
+    @GetMapping("verify")
+    public ResponseEntity<UserInfo> verifyUser(
+            @CookieValue("LY_TOKEN") String token,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws Exception {
+        try {
+//            获取token信息
+            UserInfo userInfo = JwtUtils.getInfoFromToken(token, properties.getPublicKey());
+//            刷新token
+            String newToken = JwtUtils.generateToken(userInfo, properties.getPrivateKey(), properties.getExpire());
+//            把新生产的token写入cookie
+            CookieUtils.setCookie(request,response,properties.getCookieName(),token,properties.getCookieMaxAge(),null,true);
+//            成功直接返回
+            return ResponseEntity.ok(userInfo);
+        } catch (Exception e) {
+//            抛出异常，说明token无效，返回401
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 
 }
