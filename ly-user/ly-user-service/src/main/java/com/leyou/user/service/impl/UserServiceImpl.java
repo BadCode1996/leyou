@@ -96,20 +96,21 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 查询功能，根据参数中的用户名和密码查询指定用户
-     * @param record 用户信息
+     * @param username 用户名
+     * @param password 密码
      * @return user
      */
     @Override
-    public User queryUser(User record) {
+    public User queryUser(String username, String password) {
         User user1 = new User();
-        user1.setUsername(record.getUsername());
+        user1.setUsername(username);
         User user = this.userMapper.selectOne(user1);
 //        校验用户
         if (user == null){
             return null;
         }
 //        校验密码
-        if (!user.getPassword().equals(CodecUtils.md5Hex(record.getPassword(),user.getSalt()))){
+        if (!user.getPassword().equals(CodecUtils.md5Hex(password,user.getSalt()))){
             return null;
         }
         return user;

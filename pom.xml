@@ -19,6 +19,7 @@
         <module>ly-user/ly-user-interface</module>
         <module>ly-user/ly-user-service</module>
         <module>ly-sms-service</module>
+        <module>ly-auth-centor</module>
     </modules>
     <packaging>pom</packaging>
 

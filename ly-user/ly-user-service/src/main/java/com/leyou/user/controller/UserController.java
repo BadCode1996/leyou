@@ -67,12 +67,13 @@ public class UserController {
 
     /**
      * 查询功能，根据参数中的用户名和密码查询指定用户
-     * @param record 用户信息
+     * @param username 用户名
+     * @param password 密码
      * @return user
      */
     @PostMapping("query")
-    public ResponseEntity<User> queryUser(User record){
-        User userRecord = this.userService.queryUser(record);
+    public ResponseEntity<User> queryUser(String username, String password){
+        User userRecord = this.userService.queryUser(username,password);
         if (userRecord == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

@@ -33,8 +33,9 @@ public interface UserService {
 
     /**
      * 查询功能，根据参数中的用户名和密码查询指定用户
-     * @param record 用户信息
+     * @param username 用户名
+     * @param password 密码
      * @return User
      */
-    User queryUser(User record);
+    User queryUser(String username, String password);
 }
