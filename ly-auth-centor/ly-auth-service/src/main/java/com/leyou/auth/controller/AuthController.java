@@ -39,13 +39,13 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws Exception {
-        String token = this.authService.authentication(username,password,properties.getPrivateKey(),properties.getExpire());
-        if (StringUtils.isBlank(token)){
+        String token = this.authService.authentication(username, password, properties.getPrivateKey(), properties.getExpire());
+        if (StringUtils.isBlank(token)) {
 //            UNAUTHORIZED 401 未授权
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 //        将token写入cookie，并指定httpOnly为true，防止通过js获取或修改
-        CookieUtils.setCookie(request,response,properties.getCookieName(),token,properties.getCookieMaxAge(),null,true);
+        CookieUtils.setCookie(request, response, properties.getCookieName(), token, properties.getCookieMaxAge(), null, true);
         return ResponseEntity.ok().build();
     }
 
@@ -57,14 +57,14 @@ public class AuthController {
             @CookieValue("LY_TOKEN") String token,
             HttpServletRequest request,
             HttpServletResponse response
-    ) throws Exception {
+    ) {
         try {
 //            获取token信息
             UserInfo userInfo = JwtUtils.getInfoFromToken(token, properties.getPublicKey());
 //            刷新token
             String newToken = JwtUtils.generateToken(userInfo, properties.getPrivateKey(), properties.getExpire());
 //            把新生产的token写入cookie
-            CookieUtils.setCookie(request,response,properties.getCookieName(),token,properties.getCookieMaxAge(),null,true);
+            CookieUtils.setCookie(request, response, properties.getCookieName(), token, properties.getCookieMaxAge(), null, true);
 //            成功直接返回
             return ResponseEntity.ok(userInfo);
         } catch (Exception e) {
