@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
@@ -136,5 +137,19 @@ public class GoodsController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(spu);
+    }
+
+    /**
+     * 根据sku的id查询sku
+     * @param id
+     * @return
+     */
+    @GetMapping("sku/{id}")
+    public ResponseEntity<Sku> querySkuById(@PathVariable("id") Long id){
+        Sku sku = this.goodsService.querySkuById(id);
+        if (sku == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(sku);
     }
 }

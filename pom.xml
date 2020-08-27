@@ -20,6 +20,7 @@
         <module>ly-user/ly-user-service</module>
         <module>ly-sms-service</module>
         <module>ly-auth-centor</module>
+        <module>ly-cart</module>
     </modules>
     <packaging>pom</packaging>
 

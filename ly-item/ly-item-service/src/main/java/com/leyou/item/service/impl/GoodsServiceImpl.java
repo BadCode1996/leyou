@@ -222,6 +222,18 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     /**
+     * 根据sku的id查询sku
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Sku querySkuById(Long id) {
+        Sku sku = this.skuMapper.selectByPrimaryKey(id);
+        return sku;
+    }
+
+    /**
      * 通用方法
      * @param spu spu
      */
