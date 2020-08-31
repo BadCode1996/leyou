@@ -24,6 +24,7 @@ zuul:
     user-service: /user/**  # 将注册登录微服务映射到/user/**
     auth-service: /auth/**  # 将授权中心微服务映射到/auth/**
     cart-service: /cart/**  # 将购物车微服务映射到/cart/**
+    order-service: /order/**  # 将订单微服务映射到/order/**
 
   add-host-header: true # 携带请求本身的host头信息
   sensitive-headers:  # 把禁止使用的头信息设置为null，否则set-cookie无效

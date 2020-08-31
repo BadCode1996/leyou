@@ -1,5 +1,6 @@
 package com.leyou.order.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.leyou.common.bean.PageResult;
 import com.leyou.order.bean.Order;
 import com.leyou.order.service.OrderService;
@@ -35,6 +36,7 @@ public class OrderController {
      * @return 订单编号
      */
     @PostMapping
+    @ApiOperationSupport(author = "BadCode")
     @ApiOperation(value = "创建订单接口，返回订单编号", notes = "创建订单")
     @ApiImplicitParam(name = "order", required = true, value = "订单的json对象,包含订单条目和物流信息")
     public ResponseEntity<Long> createOrder(@RequestBody @Valid Order order) {
